@@ -1,4 +1,4 @@
-# Shaper
+# Rotations
 
 [https://jistjoalal.github.io/rotations/](https://jistjoalal.github.io/rotations/)
 
