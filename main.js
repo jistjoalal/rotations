@@ -1,9 +1,11 @@
 var camera, scene, renderer, frame, freq;
 var mesh;
-let [rx, ry, rz] = [2, 2, 0];
+let [rx, ry, rz] = [0, 2, 0];
 const FREQ = 100;
+
 init();
 animate();
+
 function init() {
   initThree();
 
@@ -76,9 +78,16 @@ function rotate(freq, x, y, z) {
   let dy = (y * Math.PI) / freq;
   let dz = (z * Math.PI) / freq;
   let t = 0;
+
+  // reset mesh
   mesh.rotation.x = 0;
   mesh.rotation.y = 0;
   mesh.rotation.z = 0;
+
+  // update name
+  let name = getName(x, y, z);
+  document.querySelector("#name").innerHTML = name;
+
   return function frame() {
     if (~~(t / freq) % 2 == 0) {
       mesh.rotation.x += dx;
@@ -87,4 +96,23 @@ function rotate(freq, x, y, z) {
     }
     t = (t + 1) % (freq * 2);
   };
+}
+
+function getName(...args) {
+  let [rx, ry, rz] = args.map(Number);
+  let name = [];
+
+  // no rotation
+  if (!rx && !ry && !rz) return "no rotation";
+
+  // invalid rotation
+  if (rx % 2 || rz % 2) return `Board lands upside-down!`;
+
+  if (rx) name.push(`${rx / 2}x flip`);
+
+  if (ry) name.push(`${ry * 180} shuvit`);
+
+  if (rz) name.push(`${rz / 2}x impossible`);
+
+  return name.join`, `;
 }
