@@ -93,6 +93,10 @@ function rotate(freq, x, y, z) {
       mesh.rotation.x += dx;
       mesh.rotation.y += dy;
       mesh.rotation.z += dz;
+    } else {
+      mesh.rotation.x = 0;
+      mesh.rotation.y = 0;
+      mesh.rotation.z = 0;
     }
     t = (t + 1) % (freq * 2);
   };
